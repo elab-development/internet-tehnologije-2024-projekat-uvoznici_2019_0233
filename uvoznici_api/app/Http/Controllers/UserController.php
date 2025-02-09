@@ -67,20 +67,4 @@ class UserController extends ResponseController
         );
     }
 
-    public function test(Request $request)
-    {
-        $yourApiKey = getenv('OPENAI_API_KEY');
-        $client = OpenAI::client($yourApiKey);
-
-        $result = $client->chat()->create([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                ['role' => 'user', 'content' => 'Hello! Can you tell me how much coffee is ok to dring per day?'],
-            ],
-        ]);
-
-        return $this->successResponse([
-            'response' => $result->choices[0]->message->content
-        ], 'OpenAI chat response');
-    }
 }
