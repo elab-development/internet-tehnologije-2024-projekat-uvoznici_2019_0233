@@ -9,6 +9,7 @@ import Suppliers from "./pages/Suppliers";
 import Products from "./pages/Products";
 import Documents from "./pages/Documents";
 import ChatBot from "./pages/ChatBot";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
                   </Col>
               </Row>
           </Container>
+            <Row>
+                <Col md={12}>
+                    <Footer />
+                </Col>
+            </Row>
         </BrowserRouter>
     </>
   );
