@@ -10,6 +10,8 @@ import Products from "./pages/Products";
 import Documents from "./pages/Documents";
 import ChatBot from "./pages/ChatBot";
 import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
                           <Route path="/products" element={<Products/>} />
                           <Route path="/documents" element={<Documents/>} />
                           <Route path="/chat" element={<ChatBot />} />
+                          <Route path="/login" element={<Login />} />
+                          <Route path="/admin" element={<Admin />} />
                       </Routes>
                   </Col>
               </Row>
@@ -42,4 +46,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

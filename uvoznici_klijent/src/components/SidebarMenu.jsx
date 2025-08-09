@@ -38,7 +38,7 @@ const SidebarMenu = () => {
                         token && (
                             <>
                                 <MenuItem component={
-                                    <Link to="/admin"  onClick={
+                                    <Link to="/logout"  onClick={
                                         (e) => {
                                             e.preventDefault();
                                             window.sessionStorage.removeItem('token');
