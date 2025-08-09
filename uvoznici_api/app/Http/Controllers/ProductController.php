@@ -68,4 +68,13 @@ class ProductController extends ResponseController
         $products = Product::where('name', 'like', "%$name%")->get();
         return $this->successResponse(ProductResource::collection($products), 'Products fetched successfully');
     }
+
+    public function productsPerCategoryGrouped(Request $request)
+    {
+        $products = Product::select('category', \DB::raw('count(*) as total'))
+            ->groupBy('category')
+            ->get();
+
+        return $this->successResponse($products, 'Products grouped by category fetched successfully');
+    }
 }

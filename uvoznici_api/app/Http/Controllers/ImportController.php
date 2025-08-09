@@ -65,4 +65,13 @@ class ImportController extends ResponseController
 
         return $this->successResponse(new ImportResource($import), 'Import deleted successfully');
     }
+
+    public function importsPerStatusGrouped(Request $request)
+    {
+        $imports = Import::selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->get();
+
+        return $this->successResponse($imports, 'Imports grouped by status fetched successfully');
+    }
 }

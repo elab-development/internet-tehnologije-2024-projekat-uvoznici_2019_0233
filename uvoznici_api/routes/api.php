@@ -21,7 +21,8 @@ Route::get('/import-items/{id}', [\App\Http\Controllers\ImportItemController::cl
 Route::get('/imports/{import_id}/import-items', [\App\Http\Controllers\ImportItemController::class, 'findByImport']);
 Route::get('/paginate', [\App\Http\Controllers\ImportItemController::class, 'paginateImportItems']);
 
-
+Route::get('/products-per-category', [\App\Http\Controllers\ProductController::class, 'productsPerCategoryGrouped']);
+Route::get('/imports-per-status', [\App\Http\Controllers\ImportController::class, 'importsPerStatusGrouped']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);
