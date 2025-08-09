@@ -1,7 +1,7 @@
 import React from 'react';
 import {Menu, MenuItem, Sidebar} from "react-pro-sidebar";
 import {Link} from "react-router-dom";
-import {BiBot, BiChart, BiFile, BiHome, BiScan, BiSolidTruck, BiStar} from "react-icons/bi";
+import {BiBot, BiChart, BiFile, BiHome, BiScan, BiSolidTruck, BiStar, BiUser} from "react-icons/bi";
 import {GiBigGear} from "react-icons/gi";
 
 const SidebarMenu = () => {
@@ -61,8 +61,8 @@ const SidebarMenu = () => {
                 <div className="sidebar-footer">
                     {
                         user && (
-                            <div className="user-info">
-                                <span className="user-name">{user.name}</span>
+                            <div className="user-info m-3">
+                                <span className="user-name"><BiUser/> {user.name}</span>
                             </div>
                         )
                     }
