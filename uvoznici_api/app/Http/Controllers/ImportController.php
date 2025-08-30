@@ -27,11 +27,8 @@ class ImportController extends ResponseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'import_date' => 'required|date',
             'supplier_id' => 'required|exists:suppliers,id|numeric',
             'user_id' => 'required|exists:users,id|numeric',
-            'total_value' => 'required|numeric',
-            'status' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -44,11 +41,11 @@ class ImportController extends ResponseController
 
 
         $import = Import::create([
-            'import_date' => $request->import_date,
+            'import_date' => now(),
             'supplier_id' => $request->supplier_id,
             'user_id' => $request->user_id,
-            'total_value' => $request->total_value,
-            'status' => $request->status
+            'total_value' => 0.00,
+            'status' => 'pending',
         ]);
 
         return $this->successResponse(new ImportResource($import), 'Import created successfully');
@@ -73,5 +70,11 @@ class ImportController extends ResponseController
             ->get();
 
         return $this->successResponse($imports, 'Imports grouped by status fetched successfully');
+    }
+
+    public function findByUser(Request $request, $id)
+    {
+        $imports = Import::where('user_id', $id)->get();
+        return $this->successResponse(ImportResource::collection($imports), 'Imports fetched successfully');
     }
 }

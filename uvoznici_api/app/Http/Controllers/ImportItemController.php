@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Service\RecalculateImportPrice;
 use App\Http\Resources\ImportItemResource;
 use App\Models\ImportItem;
 use Illuminate\Http\Request;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ImportItemController extends ResponseController
 {
+
+    public function __construct(private readonly RecalculateImportPrice $recalculateImportPrice)
+    {
+    }
+
     public function index(Request $request)
     {
         $importItems = ImportItem::all();
@@ -56,6 +62,8 @@ class ImportItemController extends ResponseController
             'price' => $request->price
         ]);
 
+        $this->recalculateImportPrice->recalculate($request->import_id);
+
         return $this->successResponse(new ImportItemResource($importItem), 'Import item created successfully');
     }
 
@@ -93,7 +101,11 @@ class ImportItemController extends ResponseController
             return $this->errorResponse('Import item not found', [], 404);
         }
 
+        $import_id = $importItem->import_id;
+
         $importItem->delete();
+
+        $this->recalculateImportPrice->recalculate($import_id);
 
         return $this->successResponse(new ImportItemResource($importItem), 'Import item deleted successfully');
     }
