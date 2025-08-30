@@ -25,7 +25,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);
 
     Route::resource('/imports', \App\Http\Controllers\ImportController::class)->only(['store', 'destroy']);
-    Route::resource('/import-items', \App\Http\Controllers\ImportItemController::class)->only(['store', 'destroy']);
+    Route::resource('/import-items', \App\Http\Controllers\ImportItemController::class)->only(['store']);
+    Route::delete('/import-items/{id}', [\App\Http\Controllers\ImportItemController::class, 'destroy'])->middleware(\App\Http\Middleware\AdminMiddleware::class);
     Route::post('/products', [\App\Http\Controllers\ProductController::class, 'store']);
     Route::post('/estimate', [\App\Http\Controllers\AiController::class, 'estimate']);
 
