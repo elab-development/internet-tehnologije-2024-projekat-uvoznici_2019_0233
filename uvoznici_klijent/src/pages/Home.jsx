@@ -9,6 +9,8 @@ const Home = () => {
     const [categoryChartData, setCategoryChartData] = React.useState([]);
     const [importChartData, setImportChartData] = React.useState([]);
 
+    const [customsUsers, setCustomsUsers] = React.useState([]);
+
     const options = {
         title: "Products per Category",
     };
@@ -81,6 +83,37 @@ const Home = () => {
         )
     }, []);
 
+    useEffect(() => {
+        //https://randomuser.me/api/?results=4
+        axiosInstance.get('https://randomuser.me/api/?results=4').then(
+            (response) => {
+                console.log(response);
+                const data = response.data;
+                if (data.results) {
+                    let results = data.results;
+                    let users = [];
+
+                    for (let i = 0; i < results.length; i++) {
+                        users.push({
+                            name: results[i].name.first + " " + results[i].name.last,
+                            email: results[i].email,
+                            phone: results[i].phone,
+                            picture: results[i].picture.thumbnail
+                        })
+                    }
+
+                    console.log(users);
+
+                    setCustomsUsers(users);
+                }
+            }
+        ).catch(
+            (error) => {
+                console.error("Error fetching random users:", error);
+            }
+        )
+    }, []);
+
 
     return (
         <div>
@@ -98,6 +131,32 @@ const Home = () => {
                 <Col md={6}>
                     <Chart chartType="ColumnChart" width="100%" height="100%" data={importChartData} />
                 </Col>
+            </Row>
+
+            <Row>
+                <Col md={12} className="mt-5">
+                    <h3>Black list of custom workers</h3>
+                </Col>
+                {
+                    customsUsers.length > 0 && (
+                        <>
+                            {
+                                customsUsers.map((user, index) => (
+                                    <Col md={3} key={index}>
+                                        <div className="card">
+                                            <div className="card-body text-center">
+                                                <img src={user.picture} alt="User" className="rounded-circle mb-3" />
+                                                <h5 className="card-title">{user.name}</h5>
+                                                <p className="card-text">{user.email}</p>
+                                                <p className="card-text">{user.phone}</p>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                ))
+                            }
+                        </>
+                    )
+                }
             </Row>
         </div>
     );
