@@ -24,6 +24,8 @@ Route::get('/paginate', [\App\Http\Controllers\ImportItemController::class, 'pag
 Route::get('/products-per-category', [\App\Http\Controllers\ProductController::class, 'productsPerCategoryGrouped']);
 Route::get('/imports-per-status', [\App\Http\Controllers\ImportController::class, 'importsPerStatusGrouped']);
 Route::get('/suppliers/search', [\App\Http\Controllers\SupplierController::class, 'search']);
+Route::get('/products/categories', [\App\Http\Controllers\ProductController::class, 'getCategories']);
+Route::get('/products/search', [\App\Http\Controllers\ProductController::class, 'searchByCategory']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);

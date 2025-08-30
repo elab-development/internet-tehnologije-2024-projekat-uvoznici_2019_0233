@@ -77,4 +77,20 @@ class ProductController extends ResponseController
 
         return $this->successResponse($products, 'Products grouped by category fetched successfully');
     }
+
+    public function getCategories(Request $request)
+    {
+        //get unique categories from products table
+        $categories = Product::select('category')->distinct()->get();
+
+        return $this->successResponse($categories, 'Categories fetched successfully');
+    }
+
+    public function searchByCategory(Request $request)
+    {
+        $category = $request->input('category') ?? '';
+
+        $products = Product::where('category', 'like', "%$category%")->get();
+        return $this->successResponse(ProductResource::collection($products), 'Products fetched successfully');
+    }
 }
