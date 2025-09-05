@@ -1,0 +1,37 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.title-container h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.title-container p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.sidebar aside {
+height: 93vh;
+}
+
+footer {
+    text-align: center;
+    background-color: #000;
+    color:  #fff;
+    min-height: 10vh;
+    padding: 20px;
+    margin-top: 20px;
+}
+  
